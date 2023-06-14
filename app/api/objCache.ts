@@ -16,7 +16,7 @@ class ObjCache {
     if (typeof value !== "object") {
       throw new Error("Set value must be an object type");
     }
-    return kv.hset(key, value, opt || { ex: EXPIRE_TIME });
+    return kv.hset(key, value);
   }
 }
 
