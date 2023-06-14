@@ -1,4 +1,4 @@
-import kv from "@vercel/kv";
+import { kv } from "@vercel/kv";
 
 const EXPIRE_TIME = 3600 * 24 * 7;
 
