@@ -12,6 +12,8 @@ const cn = {
     Input: "在此处填写访问码",
     Confirm: "确认",
     Later: "稍后再说",
+    LoginTitle: "需要登录",
+    LoginTips: "登录后即可直接使用",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,

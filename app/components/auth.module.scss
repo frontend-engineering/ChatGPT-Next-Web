@@ -24,6 +24,33 @@
     margin: 3vh 0;
   }
 
+  .account-manager {
+    margin: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .account-amount {
+    font-size: 12px;
+    margin-bottom: 10px;
+    background: #f8f8f8;
+    padding: 8px 12px;
+    border: 4px;
+  }
+
+  .auth-divider {
+    display: block;
+    margin: 8px auto;
+    border-bottom: 1px solid var(--bar-color);
+    min-width: 400px;
+    text-align: center;
+    line-height: 1px;
+    font-size: large;
+    font-weight: bold;
+  }
+
   .auth-actions {
     display: flex;
     justify-content: center;

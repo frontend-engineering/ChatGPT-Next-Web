@@ -13,6 +13,8 @@ const en: RequiredLocaleType = {
     Input: "access code",
     Confirm: "Confirm",
     Later: "Later",
+    LoginTitle: "Need Login",
+    LoginTips: "Login to gain access",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages`,
