@@ -143,7 +143,7 @@ export const userAmountFeedback = async (token: string) => {
     });
 };
 
-export async function auth(req: NextRequest) {
+export async function auth(req: NextRequest, isCost: boolean) {
   const authToken = req.headers.get("Authorization") ?? "";
 
   // check if it is openai api key or user token
@@ -172,7 +172,7 @@ export async function auth(req: NextRequest) {
 
   // if user does not provide an api key, inject system api key
   if (!token) {
-    if (oauthToken) {
+    if (oauthToken && isCost) {
       const { success, data, message } = await checkLimit(oauthToken);
       if (!success) {
         console.log("check oauth limit failed: ", message);

@@ -27,7 +27,8 @@ async function handle(
     );
   }
 
-  const authResult = await auth(req);
+  const isCost = subpath === OpenaiPath.ChatPath;
+  const authResult = await auth(req, isCost);
   if (authResult.error) {
     return NextResponse.json(authResult, {
       status: 401,
