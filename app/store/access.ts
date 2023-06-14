@@ -1,16 +1,18 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import Cashier, { TUserInfo } from "@cashier/web";
-import { StoreKey } from "../constant";
+import { isMobile } from "../utils";
+import { showToast } from "../components/ui-lib";
+import { DEFAULT_API_HOST, StoreKey } from "../constant";
 import { getHeaders } from "../client/api";
 import { BOT_HELLO } from "./chat";
 import { ALL_MODELS } from "./config";
-import { isMobile } from "../utils";
-import { showToast } from "../components/ui-lib";
+import { getClientConfig } from "../config/client";
+
 export interface AccessControlStore {
   accessCode: string;
   token: string;
-  authAccount: TUserInfo | null;
+  authAccount: TUserInfo;
   authAT: string;
 
   needCode: boolean;
@@ -25,6 +27,7 @@ export interface AccessControlStore {
   purchase: () => Promise<boolean>;
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
+  updateOpenAiUrl: (_: string) => void;
   enabledAccessControl: () => boolean;
   isAuthorized: () => boolean;
   fetch: () => void;
@@ -34,18 +37,22 @@ export interface AccessControlStore {
 let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
 let sdk: Cashier | null = null;
 
+const DEFAULT_OPENAI_URL =
+  getClientConfig()?.buildMode === "export" ? DEFAULT_API_HOST : "/api/openai/";
+console.log("[API] default openai url", DEFAULT_OPENAI_URL);
+
 export const useAccessStore = create<AccessControlStore>()(
   persist(
     (set, get) => ({
       token: "",
       accessCode: "",
-      authAccount: null,
+      authAccount: null as unknown as TUserInfo,
       authAT: "",
-      needCode: true,
-      hideUserApiKey: false,
-      openaiUrl: "/api/openai/",
+      needCode: true as boolean,
+      hideUserApiKey: false as boolean,
       appId: "",
       appToken: "",
+      openaiUrl: DEFAULT_OPENAI_URL,
 
       enabledAccessControl() {
         get().fetch();
@@ -83,7 +90,10 @@ export const useAccessStore = create<AccessControlStore>()(
         }
         await get().sdkInit();
         await sdk?.logout();
-        set(() => ({ authAccount: null, authAT: undefined }));
+        set(() => ({
+          authAccount: null as unknown as TUserInfo,
+          authAT: undefined,
+        }));
       },
 
       async can() {
@@ -110,17 +120,21 @@ export const useAccessStore = create<AccessControlStore>()(
           console.log("purchase resp: ", resp);
           if (resp?.success) {
             showToast("订阅成功");
-            set(() => ({ authAccount: resp.customer }));
+            set(() => ({ authAccount: resp.customer as TUserInfo }));
             return true;
           }
           showToast("订阅失败");
           return false;
-        } catch (error) {
+        } catch (error: any) {
           console.error("purchase failed: ", error);
           showToast(error?.message);
+          return false;
         }
       },
 
+      updateOpenAiUrl(url: string) {
+        set(() => ({ openaiUrl: url }));
+      },
       isAuthorized() {
         get().fetch();
 
@@ -193,11 +207,11 @@ export const useAccessStore = create<AccessControlStore>()(
         });
         await sdk.init();
 
-        const info = sdk.getUserInfo();
+        const info = await sdk.getUserInfo();
         const tokens = await sdk?.getTokens();
         if (info && tokens) {
           set(() => ({
-            authAccount: info || null,
+            authAccount: (info || null) as unknown as TUserInfo,
             authAT: tokens?.accessToken,
           }));
         }
