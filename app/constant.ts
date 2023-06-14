@@ -38,6 +38,7 @@ export const MIN_SIDEBAR_WIDTH = 230;
 export const NARROW_SIDEBAR_WIDTH = 100;
 
 export const ACCESS_CODE_PREFIX = "ak-";
+export const ACCESS_AUTH_PREFIX = "au-";
 
 export const LAST_INPUT_KEY = "last-input";
 

@@ -137,6 +137,14 @@ const tr: LocaleType = {
       Check: "Tekrar Kontrol Et",
       NoAccess: "Bakiyeyi kontrol etmek için API anahtarını girin",
     },
+    Account: {
+      Title: "Account",
+      SubTitle: "Login account to use chatGPT",
+      Placeholder: "Click to login",
+      Amount: "Amount",
+      LogoutBtn: "Logout",
+      Recharge: "Recharge",
+    },
     AccessCode: {
       Title: "Erişim Kodu",
       SubTitle: "Erişim kontrolü etkinleştirme",

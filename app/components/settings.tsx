@@ -10,6 +10,8 @@ import ClearIcon from "../icons/clear.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 import EditIcon from "../icons/edit.svg";
 import EyeIcon from "../icons/eye.svg";
+import SettingsIcon from "../icons/settings.svg";
+import Recharge from "../icons/recharge.svg";
 import {
   Input,
   List,
@@ -259,6 +261,25 @@ export function Settings() {
     [],
   );
 
+  // const userAccount = useMemo(
+  //   () => accessStore.authAccount,
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   [],
+  // )
+  const userAT = useMemo(
+    () => accessStore.authAT,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+
+  async function checkProfile() {
+    await accessStore.login();
+  }
+
+  function goPurchase() {
+    accessStore.purchase();
+  }
+
   const promptStore = usePromptStore();
   const builtinCount = SearchService.count.builtin;
   const customCount = promptStore.getUserPrompts().length ?? 0;
@@ -485,19 +506,59 @@ export function Settings() {
 
         <List>
           {enabledAccessControl ? (
-            <ListItem
-              title={Locale.Settings.AccessCode.Title}
-              subTitle={Locale.Settings.AccessCode.SubTitle}
-            >
-              <PasswordInput
-                value={accessStore.accessCode}
-                type="text"
-                placeholder={Locale.Settings.AccessCode.Placeholder}
-                onChange={(e) => {
-                  accessStore.updateCode(e.currentTarget.value);
-                }}
-              />
-            </ListItem>
+            <>
+              <ListItem
+                title={Locale.Settings.AccessCode.Title}
+                subTitle={Locale.Settings.AccessCode.SubTitle}
+              >
+                <PasswordInput
+                  value={accessStore.accessCode}
+                  type="text"
+                  placeholder={Locale.Settings.AccessCode.Placeholder}
+                  onChange={(e) => {
+                    accessStore.updateCode(e.currentTarget.value);
+                  }}
+                />
+              </ListItem>
+              <ListItem
+                title={Locale.Settings.Account.Title}
+                subTitle={
+                  accessStore.authAccount?.name ||
+                  Locale.Settings.Account.SubTitle
+                }
+              >
+                {accessStore.authAccount ? (
+                  <>
+                    <span style={{ fontSize: "12px" }}>
+                      {Locale.Settings.Account.Amount}:{" "}
+                      {accessStore.authAccount.profile?.amount || "-"}
+                    </span>
+                    {(accessStore.authAccount.profile?.amount || 0) >
+                    0 ? null : (
+                      <IconButton
+                        icon={<Recharge />}
+                        onClick={goPurchase}
+                        className={"password-eye"}
+                        text={Locale.Settings.Account.Recharge}
+                      />
+                    )}
+                    <IconButton
+                      icon={<SettingsIcon />}
+                      onClick={accessStore.logout}
+                      className={"password-eye"}
+                      text={Locale.Settings.Account.LogoutBtn}
+                    />
+                  </>
+                ) : (
+                  <IconButton
+                    icon={<SettingsIcon />}
+                    onClick={checkProfile}
+                    className={"password-eye"}
+                    text={Locale.Settings.Account.Placeholder}
+                  />
+                )}
+              </ListItem>
+            </>
           ) : (
             <></>
           )}

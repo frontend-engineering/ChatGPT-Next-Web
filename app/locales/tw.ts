@@ -134,6 +134,14 @@ const tw: LocaleType = {
       Check: "重新檢查",
       NoAccess: "輸入API Key查看餘額",
     },
+    Account: {
+      Title: "Account",
+      SubTitle: "Login account to use chatGPT",
+      Placeholder: "Click to login",
+      Amount: "Amount",
+      LogoutBtn: "Logout",
+      Recharge: "Recharge",
+    },
     AccessCode: {
       Title: "授權碼",
       SubTitle: "目前是未授權存取狀態",

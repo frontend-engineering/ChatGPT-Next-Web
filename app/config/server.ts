@@ -3,6 +3,9 @@ import md5 from "spark-md5";
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
+      APP_ID?: string;
+      APP_TOKEN?: string;
+      HOST: string;
       OPENAI_API_KEY?: string;
       CODE?: string;
       BASE_URL?: string;
@@ -44,5 +47,8 @@ export const getServerSideConfig = () => {
     isVercel: !!process.env.VERCEL,
     hideUserApiKey: !!process.env.HIDE_USER_API_KEY,
     enableGPT4: !process.env.DISABLE_GPT4,
+    appId: process.env.APP_ID,
+    appToken: process.env.APP_TOKEN,
+    host: process.env.HOST,
   };
 };

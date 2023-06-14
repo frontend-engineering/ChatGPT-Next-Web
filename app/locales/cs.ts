@@ -137,6 +137,14 @@ const cs: LocaleType = {
       Check: "Zkontrolovat",
       NoAccess: "Pro kontrolu zůstatku zadejte klíč API",
     },
+    Account: {
+      Title: "Account",
+      SubTitle: "Login account to use chatGPT",
+      Placeholder: "Click to login",
+      Amount: "Amount",
+      LogoutBtn: "Logout",
+      Recharge: "Recharge",
+    },
     AccessCode: {
       Title: "Přístupový kód",
       SubTitle: "Kontrola přístupu povolena",

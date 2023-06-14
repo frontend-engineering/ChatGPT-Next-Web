@@ -138,6 +138,14 @@ const ru: LocaleType = {
       Check: "Проверить",
       NoAccess: "Введите API ключ, чтобы проверить баланс",
     },
+    Account: {
+      Title: "Account",
+      SubTitle: "Login account to use chatGPT",
+      Placeholder: "Click to login",
+      Amount: "Amount",
+      LogoutBtn: "Logout",
+      Recharge: "Recharge",
+    },
     AccessCode: {
       Title: "Код доступа",
       SubTitle: "Контроль доступа включен",

@@ -156,6 +156,14 @@ const en: RequiredLocaleType = {
       Check: "Check",
       NoAccess: "Enter API Key to check balance",
     },
+    Account: {
+      Title: "Account",
+      SubTitle: "Login account to use chatGPT",
+      Placeholder: "Click to login",
+      Amount: "Amount",
+      LogoutBtn: "Logout",
+      Recharge: "Recharge",
+    },
     AccessCode: {
       Title: "Access Code",
       SubTitle: "Access control enabled",

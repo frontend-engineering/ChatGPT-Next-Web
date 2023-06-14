@@ -140,6 +140,14 @@ const fr: LocaleType = {
       Check: "Vérifier",
       NoAccess: "Entrez la clé API pour vérifier le solde",
     },
+    Account: {
+      Title: "Account",
+      SubTitle: "Login account to use chatGPT",
+      Placeholder: "Click to login",
+      Amount: "Amount",
+      LogoutBtn: "Logout",
+      Recharge: "Recharge",
+    },
     AccessCode: {
       Title: "Code d'accès",
       SubTitle: "Contrôle d'accès activé",

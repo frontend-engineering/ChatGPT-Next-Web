@@ -136,6 +136,14 @@ const ko: LocaleType = {
       Check: "확인",
       NoAccess: "잔액 확인을 위해 API 키를 입력하세요.",
     },
+    Account: {
+      Title: "Account",
+      SubTitle: "Login account to use chatGPT",
+      Placeholder: "Click to login",
+      Amount: "Amount",
+      LogoutBtn: "Logout",
+      Recharge: "Recharge",
+    },
     AccessCode: {
       Title: "액세스 코드",
       SubTitle: "액세스 제어가 활성화됨",
