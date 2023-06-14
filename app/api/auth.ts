@@ -84,7 +84,7 @@ export const checkLimit = async (token: string) => {
   //  有付费额度
   if (
     profile?.amount > 0 &&
-    new Date(profile.expireAt).valueOf() > Date.now()
+    new Date(profile.expireAt || Date.now() + 1000).valueOf() > Date.now()
   ) {
     return {
       success: true,
