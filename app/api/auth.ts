@@ -38,7 +38,7 @@ const getCustomerInfo = async (userToken: string) => {
   const cacheData = await ObjCache.get(cacheKey);
   if (cacheData?.date === curDateStr) {
     console.log("cache hit: ", cacheData?.date, cacheKey);
-    if (cacheData.data?.profile?.amount > 0) {
+    if ((cacheData.data as any)?.profile?.amount > 0) {
       console.log("valid cache data");
       return cacheData.data;
     }
