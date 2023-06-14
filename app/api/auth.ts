@@ -86,6 +86,7 @@ export const checkLimit = async (token: string) => {
     profile?.amount > 0 &&
     new Date(profile.expireAt || Date.now() + 1000).valueOf() > Date.now()
   ) {
+    userAmountFeedback(token);
     return {
       success: true,
       data: {
@@ -101,11 +102,7 @@ export const checkLimit = async (token: string) => {
   }
 };
 
-export const userAmountFeedback = async (req: NextRequest) => {
-  const authToken = req.headers.get("Authorization") ?? "";
-
-  // check if it is openai api key or user token
-  const { oauthToken: token } = parseApiKey(authToken);
+export const userAmountFeedback = async (token: string) => {
   if (!token) {
     console.log("no oauth token parsed");
     return;

@@ -1,7 +1,7 @@
 import { OpenaiPath } from "@/app/constant";
 import { prettyObject } from "@/app/utils/format";
 import { NextRequest, NextResponse } from "next/server";
-import { auth, userAmountFeedback } from "../../auth";
+import { auth } from "../../auth";
 import { requestOpenai } from "../../common";
 
 const ALLOWD_PATH = new Set(Object.values(OpenaiPath));
@@ -36,7 +36,6 @@ async function handle(
 
   try {
     const resp = await requestOpenai(req);
-    userAmountFeedback(req);
     return resp;
   } catch (e) {
     console.error("[OpenAI] ", e);
