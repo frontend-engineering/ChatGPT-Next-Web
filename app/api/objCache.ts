@@ -3,13 +3,13 @@ import kv from "@vercel/kv";
 const EXPIRE_TIME = 3600 * 24 * 7;
 
 class ObjCache {
-  async get(key) {
+  async get(key: string) {
     if (!key) {
       throw new Error("Get key is lost");
     }
     return kv.hgetall(key);
   }
-  async set(key, value, opt) {
+  async set(key: string, value: any, opt: any) {
     if (!key) {
       throw new Error("Set key is lost");
     }
