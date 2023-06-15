@@ -27,7 +27,7 @@ export interface AccessControlStore {
   logout: () => Promise<void>;
   can: () => Promise<boolean>;
   purchase: () => Promise<boolean>;
-  updateProfile: () => void;
+  updateProfile: () => any;
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
   updateOpenAiUrl: (_: string) => void;
