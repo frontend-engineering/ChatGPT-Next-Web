@@ -164,6 +164,14 @@ After adding or modifying this environment variable, please redeploy the project
 
 Your openai api key.
 
+### `APP_ID` （可选）
+
+AppID 付费功能需要，在管理后台创建和维护
+
+### `APP_TOKEN` （可选）
+
+AppToken 付费功能需要，在管理后台创建和维护
+
 ### `CODE` (optional)
 
 Access passsword, separated by comma.
