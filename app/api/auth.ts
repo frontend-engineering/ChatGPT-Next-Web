@@ -90,7 +90,7 @@ export const checkLimit = async (token: string) => {
     return {
       success: true,
       data: {
-        cnt: profile.amount,
+        cnt: profile.amount - 1,
       },
     };
   } else {
@@ -139,6 +139,7 @@ export const userAmountFeedback = async (token: string) => {
             ex: cacheKeyPerDayTTL, // 1 day
           },
         );
+        return updatedUserInfo;
       }
     });
 };
@@ -170,6 +171,7 @@ export async function auth(req: NextRequest, isCost: boolean) {
     };
   }
 
+  let cnt = 0;
   // if user does not provide an api key, inject system api key
   if (!token) {
     if (oauthToken && isCost) {
@@ -177,10 +179,14 @@ export async function auth(req: NextRequest, isCost: boolean) {
       if (!success) {
         console.log("check oauth limit failed: ", message);
         return {
-          error: false,
+          error: true,
+          msg: "Amount limited",
         };
       }
       console.log("oatuh check pass: ", data);
+      if (typeof data?.cnt === "number") {
+        cnt = data?.cnt;
+      }
     }
     const apiKey = serverConfig.apiKey;
     if (apiKey) {
@@ -195,5 +201,6 @@ export async function auth(req: NextRequest, isCost: boolean) {
 
   return {
     error: false,
+    cnt,
   };
 }

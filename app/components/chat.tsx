@@ -472,6 +472,8 @@ export function Chat() {
   const isMobileScreen = useMobileScreen();
   const navigate = useNavigate();
 
+  const accessStore = useAccessStore();
+
   const onChatBodyScroll = (e: HTMLElement) => {
     const isTouchBottom = e.scrollTop + e.clientHeight >= e.scrollHeight - 100;
     setHitBottom(isTouchBottom);
@@ -536,7 +538,10 @@ export function Chat() {
   const doSubmit = (userInput: string) => {
     if (userInput.trim() === "") return;
     setIsLoading(true);
-    chatStore.onUserInput(userInput).then(() => setIsLoading(false));
+    chatStore.onUserInput(userInput).then(() => {
+      setIsLoading(false);
+      accessStore.updateProfile();
+    });
     localStorage.setItem(LAST_INPUT_KEY, userInput);
     setUserInput("");
     setPromptHints([]);
@@ -645,8 +650,6 @@ export function Chat() {
   const context: RenderMessage[] = session.mask.hideContext
     ? []
     : session.mask.context.slice();
-
-  const accessStore = useAccessStore();
 
   if (
     context.length === 0 &&

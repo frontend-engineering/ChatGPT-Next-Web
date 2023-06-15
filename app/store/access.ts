@@ -21,10 +21,13 @@ export interface AccessControlStore {
   appId: string;
   appToken: string;
 
+  cacheDate: number;
+
   login: () => Promise<void>;
   logout: () => Promise<void>;
   can: () => Promise<boolean>;
   purchase: () => Promise<boolean>;
+  updateProfile: () => Promise<void>;
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
   updateOpenAiUrl: (_: string) => void;
@@ -53,6 +56,7 @@ export const useAccessStore = create<AccessControlStore>()(
       appId: "",
       appToken: "",
       openaiUrl: DEFAULT_OPENAI_URL,
+      cacheDate: 0,
 
       enabledAccessControl() {
         get().fetch();
@@ -73,13 +77,13 @@ export const useAccessStore = create<AccessControlStore>()(
         }
         await get().sdkInit();
         const info = await sdk?.login();
-        console.log("---- info----", info);
         const tokens = await sdk?.getTokens();
 
         if (info && tokens) {
           set(() => ({
             authAccount: info || null,
             authAT: tokens?.accessToken,
+            cacheDate: Date.now(),
           }));
         }
       },
@@ -130,6 +134,44 @@ export const useAccessStore = create<AccessControlStore>()(
           showToast(error?.message);
           return false;
         }
+      },
+
+      async updateProfile() {
+        if (!sdk) {
+          await get().sdkInit();
+        }
+
+        if (Date.now() - get().cacheDate > 3600000) {
+          const updated = await sdk?.getUserInfo({
+            refresh: true,
+          });
+
+          if (updated) {
+            set(() => ({
+              authAccount: updated as TUserInfo,
+              cacheDate: Date.now(),
+            }));
+          }
+        }
+
+        const info = get().authAccount;
+        console.log("authed info: ", info);
+        if (!info) {
+          await get().login();
+        }
+
+        if (!info) {
+          throw new Error("User data not found");
+        }
+        set(() => ({
+          authAccount: {
+            ...info,
+            profile: {
+              ...info.profile,
+              amount: info.profile?.amount - 1,
+            },
+          } as TUserInfo,
+        }));
       },
 
       updateOpenAiUrl(url: string) {
