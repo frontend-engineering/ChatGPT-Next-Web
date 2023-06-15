@@ -555,6 +555,10 @@ export function Chat() {
   };
 
   useEffect(() => {
+    accessStore.updateProfile(true);
+  }, []);
+
+  useEffect(() => {
     chatStore.updateCurrentSession((session) => {
       const stopTiming = Date.now() - REQUEST_TIMEOUT_MS;
       session.messages.forEach((m) => {

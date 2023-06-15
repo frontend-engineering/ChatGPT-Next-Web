@@ -136,12 +136,12 @@ export const useAccessStore = create<AccessControlStore>()(
         }
       },
 
-      async updateProfile() {
+      async updateProfile(refresh?: boolean) {
         if (!sdk) {
           await get().sdkInit();
         }
 
-        if (Date.now() - get().cacheDate > 3600000) {
+        if (refresh || Date.now() - get().cacheDate > 3600000) {
           const updated = await sdk?.getUserInfo({
             refresh: true,
           });
@@ -152,6 +152,7 @@ export const useAccessStore = create<AccessControlStore>()(
               cacheDate: Date.now(),
             }));
           }
+          return;
         }
 
         const info = get().authAccount;
