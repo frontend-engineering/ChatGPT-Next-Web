@@ -27,7 +27,7 @@ export interface AccessControlStore {
   logout: () => Promise<void>;
   can: () => Promise<boolean>;
   purchase: () => Promise<boolean>;
-  updateProfile: () => Promise<void>;
+  updateProfile: () => void;
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
   updateOpenAiUrl: (_: string) => void;
@@ -163,15 +163,17 @@ export const useAccessStore = create<AccessControlStore>()(
         if (!info) {
           throw new Error("User data not found");
         }
-        set(() => ({
-          authAccount: {
-            ...info,
-            profile: {
-              ...info.profile,
-              amount: info.profile?.amount - 1,
-            },
-          } as TUserInfo,
-        }));
+        if (info.profile?.amount && info.profile?.amount > 0) {
+          set(() => ({
+            authAccount: {
+              ...info,
+              profile: {
+                ...info.profile,
+                amount: info.profile?.amount ? info.profile.amount - 1 : 0,
+              },
+            } as TUserInfo,
+          }));
+        }
       },
 
       updateOpenAiUrl(url: string) {
