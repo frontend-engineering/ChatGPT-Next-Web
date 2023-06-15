@@ -5,13 +5,16 @@
 
 Implemente su aplicación web privada ChatGPT de forma gratuita con un solo clic.
 
-[Demo demo](https://chat-gpt-next-web.vercel.app/) / [Problemas de comentarios](https://github.com/Yidadaa/ChatGPT-Next-Web/issues) / [Únete a Discord](https://discord.gg/zrhvHCr79N) / [Grupo QQ](https://user-images.githubusercontent.com/16968934/228190818-7dd00845-e9b9-4363-97e5-44c507ac76da.jpeg) / [Desarrolladores de consejos](https://user-images.githubusercontent.com/16968934/227772541-5bcd52d8-61b7-488c-a203-0330d8006e2b.jpg) / [Donar](#捐赠-donate-usdt)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FYidadaa%2FChatGPT-Next-Web\&env=OPENAI_API_KEY\&env=CODE\&project-name=chatgpt-next-web\&repository-name=ChatGPT-Next-Web)
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Yidadaa/ChatGPT-Next-Web)
+[Demo](https://www.webinfra.cloud/) / [Issues](https://github.com/frontend-engineering/ChatGPT-Next-Web/issues)
 
-![主界面](./docs/images/cover.png)
+[演示](https://www.webinfra.cloud/) / [反馈](https://github.com/frontend-engineering/ChatGPT-Next-Web/issues) 
+
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ffrontend-engineering%2FChatGPT-Next-Web&env=OPENAI_API_KEY&env=APP_ID&env=APP_TOKEN&project-name=chagtpg-next-webapp&repository-name=ChatGPT-Next-WebApp)
+
+![cover](./docs/images/cover.png)
 
 </div>
 

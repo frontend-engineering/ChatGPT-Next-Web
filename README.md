@@ -9,17 +9,38 @@ One-Click to deploy well-designed ChatGPT web UI on Vercel.
 
 一键免费部署你的私人 ChatGPT 网页应用。
 
-[Demo](https://chatgpt.nextweb.fun/) / [Issues](https://github.com/Yidadaa/ChatGPT-Next-Web/issues) / [Buy Me a Coffee](https://www.buymeacoffee.com/yidadaa)
 
-[演示](https://chatgpt.nextweb.fun/) / [反馈](https://github.com/Yidadaa/ChatGPT-Next-Web/issues) / [QQ 群](https://github.com/Yidadaa/ChatGPT-Next-Web/discussions/1724) / [打赏开发者](https://user-images.githubusercontent.com/16968934/227772541-5bcd52d8-61b7-488c-a203-0330d8006e2b.jpg)
+> 本项目Fork自 https://github.com/Yidadaa/ChatGPT-Next-Web，在保留原项目所有功能的基础上，加入了用户管理模块，和微信收款模块。你可以一键部署自己的ChatGPT站点，并开启付费使用。
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FYidadaa%2FChatGPT-Next-Web&env=OPENAI_API_KEY&env=CODE&project-name=chatgpt-next-web&repository-name=ChatGPT-Next-Web)
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Yidadaa/ChatGPT-Next-Web)
+其中价格和用量都可以自己定义，[管理后台](https://admin.webinfra.cloud)
+
+
+
+[Demo](https://www.webinfra.cloud/) / [Issues](https://github.com/frontend-engineering/ChatGPT-Next-Web/issues)
+
+[演示](https://www.webinfra.cloud/) / [反馈](https://github.com/frontend-engineering/ChatGPT-Next-Web/issues) 
+
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ffrontend-engineering%2FChatGPT-Next-Web&env=OPENAI_API_KEY&env=APP_ID&env=APP_TOKEN&project-name=chagtpg-next-webapp&repository-name=ChatGPT-Next-WebApp)
 
 ![cover](./docs/images/cover.png)
 
 </div>
+
+
+## Charge Module Settings
+
+- goto [admin site](https://admin.webinfra.cloud) register, and create a new App, copy *appId* and *appToken*
+- deploy to vercel, and fill the APP_ID(appId) & APP_TOKEN(appToken) previously copied Environment Variables
+- the last step: create kv store in Storage section
+
+
+## 收费功能开通流程
+- 先去管理后台 [admin site](https://admin.webinfra.cloud) 注册一个新账户，并创建一个新应用，默认一个新应用包含免费额度包和付费包，创建的时候可以配置一下产品价格和数量，并记下appId / appToken
+- 开始一键部署，需要填入上一步的APP_ID / APP_TOKEN，关联应用
+- 最后在部署完成后，需要开通vercel kv store
+
 
 ## Features
 
@@ -43,10 +64,6 @@ One-Click to deploy well-designed ChatGPT web UI on Vercel.
 - [ ] Self-host Model: support llama, alpaca, ChatGLM, BELLE etc.
 - [ ] Plugins: support network search, calculator, any other apis etc. [#165](https://github.com/Yidadaa/ChatGPT-Next-Web/issues/165)
 
-### Not in Plan
-
-- User login, accounts, cloud sync
-- UI text customize
 
 ## What's New
 
@@ -76,10 +93,7 @@ One-Click to deploy well-designed ChatGPT web UI on Vercel.
 - [ ] 支持自部署的大语言模型
 - [ ] 插件机制，支持联网搜索、计算器、调用其他平台 api [#165](https://github.com/Yidadaa/ChatGPT-Next-Web/issues/165)
 
-### 不会开发的功能
 
-- 界面文字自定义
-- 用户登录、账号管理、消息云同步
 
 ## 最新动态
 
@@ -225,54 +239,9 @@ docker run -d -p 3000:3000 \
    yidadaa/chatgpt-next-web
 ```
 
-### Shell
-
-```shell
-bash <(curl -s https://raw.githubusercontent.com/Yidadaa/ChatGPT-Next-Web/main/scripts/setup.sh)
-```
-
 ## Screenshots
 
 ![Settings](./docs/images/settings.png)
 
 ![More](./docs/images/more.png)
 
-## Donation
-
-[Buy Me a Coffee](https://www.buymeacoffee.com/yidadaa)
-
-## Special Thanks
-
-### Sponsor
-
-> 仅列出捐赠金额 >= 100RMB 的用户。
-
-[@mushan0x0](https://github.com/mushan0x0)
-[@ClarenceDan](https://github.com/ClarenceDan)
-[@zhangjia](https://github.com/zhangjia)
-[@hoochanlon](https://github.com/hoochanlon)
-[@relativequantum](https://github.com/relativequantum)
-[@desenmeng](https://github.com/desenmeng)
-[@webees](https://github.com/webees)
-[@chazzhou](https://github.com/chazzhou)
-[@hauy](https://github.com/hauy)
-[@Corwin006](https://github.com/Corwin006)
-[@yankunsong](https://github.com/yankunsong)
-[@ypwhs](https://github.com/ypwhs)
-[@fxxxchao](https://github.com/fxxxchao)
-[@hotic](https://github.com/hotic)
-[@WingCH](https://github.com/WingCH)
-[@jtung4](https://github.com/jtung4)
-[@micozhu](https://github.com/micozhu)
-[@jhansion](https://github.com/jhansion)
-[@Sha1rholder](https://github.com/Sha1rholder)
-[@AnsonHyq](https://github.com/AnsonHyq)
-[@synwith](https://github.com/synwith)
-
-### Contributor
-
-[Contributors](https://github.com/Yidadaa/ChatGPT-Next-Web/graphs/contributors)
-
-## LICENSE
-
-[Anti 996 License](https://github.com/kattgu7/Anti-996-License/blob/master/LICENSE_CN_EN)

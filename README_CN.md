@@ -5,13 +5,16 @@
 
 一键免费部署你的私人 ChatGPT 网页应用。
 
-[演示 Demo](https://chat-gpt-next-web.vercel.app/) / [反馈 Issues](https://github.com/Yidadaa/ChatGPT-Next-Web/issues) / [加入 Discord](https://discord.gg/zrhvHCr79N) / [QQ 群](https://user-images.githubusercontent.com/16968934/228190818-7dd00845-e9b9-4363-97e5-44c507ac76da.jpeg) / [打赏开发者](https://user-images.githubusercontent.com/16968934/227772541-5bcd52d8-61b7-488c-a203-0330d8006e2b.jpg) / [Donate](#捐赠-donate-usdt)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FYidadaa%2FChatGPT-Next-Web&env=OPENAI_API_KEY&env=CODE&project-name=chatgpt-next-web&repository-name=ChatGPT-Next-Web)
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Yidadaa/ChatGPT-Next-Web)
+[Demo](https://www.webinfra.cloud/) / [Issues](https://github.com/frontend-engineering/ChatGPT-Next-Web/issues)
 
-![主界面](./docs/images/cover.png)
+[演示](https://www.webinfra.cloud/) / [反馈](https://github.com/frontend-engineering/ChatGPT-Next-Web/issues) 
+
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ffrontend-engineering%2FChatGPT-Next-Web&env=OPENAI_API_KEY&env=APP_ID&env=APP_TOKEN&project-name=chagtpg-next-webapp&repository-name=ChatGPT-Next-WebApp)
+
+![cover](./docs/images/cover.png)
 
 </div>
 
@@ -22,6 +25,13 @@
    [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FYidadaa%2FChatGPT-Next-Web&env=OPENAI_API_KEY&env=CODE&project-name=chatgpt-next-web&repository-name=ChatGPT-Next-Web)，直接使用 Github 账号登录即可，记得在环境变量页填入 API Key 和[页面访问密码](#配置页面访问密码) CODE；
 3. 部署完毕后，即可开始使用；
 4. （可选）[绑定自定义域名](https://vercel.com/docs/concepts/projects/domains/add-a-domain)：Vercel 分配的域名 DNS 在某些区域被污染了，绑定自定义域名即可直连。
+
+
+## 收费功能开通流程
+- 先去管理后台 [admin site](https://admin.webinfra.cloud) 注册一个新账户，并创建一个新应用，默认一个新应用包含免费额度包和付费包，创建的时候可以配置一下产品价格和数量，并记下appId / appToken
+- 开始一键部署，需要填入上一步的APP_ID / APP_TOKEN，关联应用
+- 最后在部署完成后，需要开通vercel kv store
+
 
 ## 保持更新
 
@@ -69,6 +79,15 @@ code1,code2,code3
 ### `OPENAI_API_KEY` （必填项）
 
 OpanAI 密钥，你在 openai 账户页面申请的 api key。
+
+
+### `APP_ID` （可选）
+
+AppID 付费功能需要，在管理后台创建和维护
+
+### `APP_TOKEN` （可选）
+
+AppToken 付费功能需要，在管理后台创建和维护
 
 ### `CODE` （可选）
 
