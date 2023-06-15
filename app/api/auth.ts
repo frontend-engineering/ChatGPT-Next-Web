@@ -2,7 +2,6 @@ import { NextRequest } from "next/server";
 import { getServerSideConfig } from "../config/server";
 import md5 from "spark-md5";
 import { ACCESS_CODE_PREFIX, ACCESS_AUTH_PREFIX } from "../constant";
-import { OPENAI_URL } from "./common";
 import ObjCache from "./objCache";
 
 function getIP(req: NextRequest) {

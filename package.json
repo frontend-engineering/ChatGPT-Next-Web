@@ -1,14 +1,16 @@
 {
   "name": "chatgpt-next-web",
-  "version": "1.9.3",
   "private": false,
-  "license": "Anti 996",
+  "license": "mit",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "BUILD_MODE=export yarn build",
+    "export": "cross-env BUILD_MODE=export BUILD_APP=1 yarn build",
+    "export:dev": "cross-env BUILD_MODE=export BUILD_APP=1 yarn dev",
+    "app:dev": "yarn tauri dev",
+    "app:build": "yarn tauri build",
     "prompts": "node ./scripts/fetch-prompts.mjs",
     "prepare": "husky install",
     "proxy-dev": "sh ./scripts/init-proxy.sh && proxychains -f ./scripts/proxychains.conf yarn dev"
@@ -36,6 +38,7 @@
     "remark-gfm": "^3.0.1",
     "remark-math": "^5.1.1",
     "sass": "^1.59.2",
+    "sharp": "^0.32.1",
     "spark-md5": "^3.0.2",
     "use-debounce": "^9.0.3",
     "zustand": "^4.3.6"

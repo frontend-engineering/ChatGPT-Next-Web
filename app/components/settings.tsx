@@ -307,6 +307,9 @@ export function Settings() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const clientConfig = useMemo(() => getClientConfig(), []);
+  const showAccessCode = enabledAccessControl && !clientConfig?.isApp;
+
   return (
     <ErrorBoundary>
       <div className="window-header">
@@ -508,19 +511,23 @@ export function Settings() {
         <List>
           {enabledAccessControl ? (
             <>
-              <ListItem
-                title={Locale.Settings.AccessCode.Title}
-                subTitle={Locale.Settings.AccessCode.SubTitle}
-              >
-                <PasswordInput
-                  value={accessStore.accessCode}
-                  type="text"
-                  placeholder={Locale.Settings.AccessCode.Placeholder}
-                  onChange={(e) => {
-                    accessStore.updateCode(e.currentTarget.value);
-                  }}
-                />
-              </ListItem>
+              {showAccessCode ? (
+                <ListItem
+                  title={Locale.Settings.AccessCode.Title}
+                  subTitle={Locale.Settings.AccessCode.SubTitle}
+                >
+                  <PasswordInput
+                    value={accessStore.accessCode}
+                    type="text"
+                    placeholder={Locale.Settings.AccessCode.Placeholder}
+                    onChange={(e) => {
+                      accessStore.updateCode(e.currentTarget.value);
+                    }}
+                  />
+                </ListItem>
+              ) : (
+                <></>
+              )}
               <ListItem
                 title={Locale.Settings.Account.Title}
                 subTitle={
