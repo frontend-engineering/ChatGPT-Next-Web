@@ -42,6 +42,15 @@ One-Click to deploy well-designed ChatGPT web UI on Vercel.
 - 最后在部署完成后，需要开通vercel kv store
 
 
+> 如有使用方面的问题，可关注公众号 <strong>webinfra</strong> 需求帮助
+
+ ![](https://flashpixel-1253674045.cos.ap-shanghai.myqcloud.com/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E7%99%BD%E8%89%B2%E7%89%88.bmp)
+
+ 或加交流群
+<p align="center">
+  <img width="248px" src="./public/group-qr-6-22.jpeg" />
+</p>
+
 ## Features
 
 - **Deploy for free with one-click** on Vercel in under 1 minute
