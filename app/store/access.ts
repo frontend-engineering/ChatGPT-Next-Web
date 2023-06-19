@@ -61,7 +61,7 @@ export const useAccessStore = create<AccessControlStore>()(
       enabledAccessControl() {
         get().fetch();
 
-        return get().needCode;
+        return get().needCode || !!get().appId;
       },
       updateCode(code: string) {
         set(() => ({ accessCode: code }));
