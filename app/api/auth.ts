@@ -86,7 +86,10 @@ export const checkLimit = async (token: string) => {
   const profile = userInfo.profile;
   // 强制用户订阅，免费版或者付费版二选一
   if (!profile) {
-    throw new Error("用户未订阅");
+    return {
+      success: false,
+      message: "User unauthorized",
+    };
   }
   //  有付费额度
   if (
