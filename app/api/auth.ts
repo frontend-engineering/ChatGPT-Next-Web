@@ -15,6 +15,14 @@ function getIP(req: NextRequest) {
   return ip;
 }
 
+function hashCode(str: string) {
+  if (!str) {
+    throw new Error("invalid string");
+  }
+  const hashedCode = md5.hash(str ?? "").trim();
+  return hashedCode;
+}
+
 function parseApiKey(bearToken: string) {
   const token = bearToken.trim().replaceAll("Bearer ", "").trim();
   const isAccessCode = token.startsWith(ACCESS_CODE_PREFIX);
@@ -32,7 +40,7 @@ const cacheKeyPerDayTTL = 3600 * 24;
 
 const getCustomerInfo = async (userToken: string) => {
   const curDateStr = new Date().toDateString().replace(/\s/gim, "-");
-  const cacheKey = `cnt-${userToken.slice(0, 12)}`;
+  const cacheKey = `cnt-${hashCode(userToken)}`;
 
   const cacheData = await ObjCache.get(cacheKey);
   if (cacheData?.date === curDateStr) {
