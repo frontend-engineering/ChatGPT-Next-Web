@@ -39,7 +39,12 @@ One-Click to deploy well-designed ChatGPT web UI on Vercel.
 ## 收费功能开通流程
 - 先去管理后台 [admin site](https://admin.webinfra.cloud) 注册一个新账户，并创建一个新应用，默认一个新应用包含免费额度包和付费包，创建的时候可以配置一下产品价格和数量，并记下appId / appToken
 - 开始一键部署，需要填入上一步的APP_ID / APP_TOKEN，关联应用
-- 最后在部署完成后，需要开通vercel kv store
+- 最后需要开通vercel kv store，如下图所示，开通后需要**重新部署应用，storage方可生效**
+<p align="center">
+   <img width="648px" src="./docs/images/kv/create-1.png" />
+   <br/>
+   <img width="248px" src="./docs/images/kv/create-2.png" />
+</p>
 
 
 > 如有使用方面的问题，可关注公众号 <strong>webinfra</strong> 需求帮助
