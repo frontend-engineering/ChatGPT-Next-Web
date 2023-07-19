@@ -3,6 +3,7 @@ import "./styles/globals.scss";
 import "./styles/markdown.scss";
 import "./styles/highlight.scss";
 import { getClientConfig } from "./config/client";
+import Script from "next/script";
 
 export const metadata = {
   title: "ChatGPT Next Web",
@@ -33,6 +34,21 @@ export default function RootLayout({
         <meta name="config" content={JSON.stringify(getClientConfig())} />
         <link rel="manifest" href="/site.webmanifest"></link>
         <script src="/serviceWorkerRegister.js" defer></script>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-6K4Z2PBCZ2"
+        ></Script>
+        <Script id="google-analytics">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){
+            dataLayer.push(arguments);
+          };
+          gtag('js', new Date());
+
+          gtag('config', 'G-6K4Z2PBCZ2');
+          `}
+        </Script>
       </head>
       <body>{children}</body>
     </html>
