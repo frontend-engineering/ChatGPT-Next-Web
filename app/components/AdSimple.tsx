@@ -26,7 +26,7 @@ export default function AdSimple(...props: any) {
         onClick={closeAds}
         style={{
           position: "absolute",
-          top: "-20px",
+          top: "-34px",
           right: "20px",
           cursor: "pointer",
           boxShadow: "0 0 2px 1px #80808066",
