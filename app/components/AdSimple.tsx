@@ -7,12 +7,10 @@ export default function AdSimple(...props: any) {
     if (window.innerWidth <= 1280) {
       setHideAds(true);
     }
-    setTimeout(() => {
-      if (!(window as any).adsbygoogle) {
-        (window as any).adsbygoogle = (window as any).adsbygoogle || [];
-        (window as any).adsbygoogle.push({});
-      }
-    }, 1000);
+    if (!(window as any).adsbygoogle) {
+      (window as any).adsbygoogle = (window as any).adsbygoogle || [];
+      (window as any).adsbygoogle.push({});
+    }
   }, []);
 
   const closeAds = () => {
