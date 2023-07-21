@@ -1,16 +1,19 @@
 "use client";
 import { useEffect, useState } from "react";
 export default function AdSimple(...props: any) {
-  const { currentPath } = props;
   const [hideAds, setHideAds] = useState(false);
 
   useEffect(() => {
     if (window.innerWidth <= 1280) {
       setHideAds(true);
     }
-    (window as any).adsbygoogle = (window as any).adsbygoogle || [];
-    (window as any).adsbygoogle.push({});
-  }, [currentPath]);
+    setTimeout(() => {
+      if (!(window as any).adsbygoogle) {
+        (window as any).adsbygoogle = (window as any).adsbygoogle || [];
+        (window as any).adsbygoogle.push({});
+      }
+    }, 1000);
+  }, []);
 
   const closeAds = () => {
     setHideAds(true);
@@ -18,7 +21,7 @@ export default function AdSimple(...props: any) {
 
   return hideAds ? null : (
     <div
-      key={currentPath}
+      key="simp-ads-container"
       style={{ position: "relative", width: "calc((100vw - 1224px))" }}
     >
       <div

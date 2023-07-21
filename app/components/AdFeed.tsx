@@ -6,11 +6,13 @@ export default function AdFeed(props: any) {
   const { currentPath, idx } = props;
 
   useEffect(() => {
-    if (!(window as any).adsbygoogle) {
-      (window as any).adsbygoogle = (window as any).adsbygoogle || [];
-      (window as any).adsbygoogle.push({});
-    }
-  }, [currentPath]);
+    setTimeout(() => {
+      if (!(window as any).adsbygoogle) {
+        (window as any).adsbygoogle = (window as any).adsbygoogle || [];
+        (window as any).adsbygoogle.push({});
+      }
+    }, 3000);
+  }, []);
 
   return (
     <div
