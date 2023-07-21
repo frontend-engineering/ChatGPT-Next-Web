@@ -5,6 +5,9 @@ export default function AdSimple(...props: any) {
   const [hideAds, setHideAds] = useState(false);
 
   useEffect(() => {
+    if (window.innerWidth <= 1280) {
+      setHideAds(true);
+    }
     (window as any).adsbygoogle = (window as any).adsbygoogle || [];
     (window as any).adsbygoogle.push({});
   }, [currentPath]);
