@@ -68,6 +68,7 @@ import { useCommand } from "../command";
 import { prettyObject } from "../utils/format";
 import { ExportMessageModal } from "./exporter";
 import { getClientConfig } from "../config/client";
+import AdFeed from "./AdFeed";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -816,8 +817,11 @@ export function Chat() {
 
           const shouldShowClearContextDivider = i === clearContextIndex - 1;
 
+          const addAds = i % 3 === 0 && !isUser;
+
           return (
             <>
+              {addAds ? <AdFeed idx={i} /> : null}
               <div
                 key={i}
                 className={
