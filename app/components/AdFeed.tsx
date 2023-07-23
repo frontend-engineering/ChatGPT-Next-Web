@@ -6,8 +6,10 @@ export const AdFeed = memo(
     console.log("ad feed idx: ", props);
     const { idx } = props;
     useEffect(() => {
-      (window as any).adsbygoogle = (window as any).adsbygoogle || [];
-      (window as any).adsbygoogle.push({});
+      setTimeout(() => {
+        (window as any).adsbygoogle = (window as any).adsbygoogle || [];
+        (window as any).adsbygoogle.push({});
+      }, 300);
     }, [props.idx]);
     return (
       <div
@@ -18,7 +20,7 @@ export const AdFeed = memo(
       >
         <ins
           className="adsbygoogle"
-          style={{ display: "block" }}
+          style={{ display: "block", width: "100%" }}
           data-ad-format="fluid"
           data-ad-layout-key="-fb+5w+4e-db+86"
           data-ad-client="ca-pub-3614870144525266"
