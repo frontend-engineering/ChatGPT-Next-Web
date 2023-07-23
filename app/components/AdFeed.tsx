@@ -6,11 +6,9 @@ export const AdFeed = memo(
     console.log("ad feed idx: ", props);
     const { idx } = props;
     useEffect(() => {
-      if (!(window as any).adsbygoogle) {
-        (window as any).adsbygoogle = (window as any).adsbygoogle || [];
-        (window as any).adsbygoogle.push({});
-      }
-    }, [props]);
+      (window as any).adsbygoogle = (window as any).adsbygoogle || [];
+      (window as any).adsbygoogle.push({});
+    }, [props.idx]);
     return (
       <div
         className={styles["chat-message"]}
