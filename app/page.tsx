@@ -15,7 +15,7 @@ export default async function App() {
   return (
     <>
       <Home />
-      <AdSimple />
+      {/* <AdSimple /> */}
       {serverConfig?.isVercel && <Analytics />}
     </>
   );

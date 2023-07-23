@@ -1,16 +1,16 @@
-import { memo } from "react";
+import { useEffect, memo } from "react";
 import styles from "./home.module.scss";
 
 export const AdFeed = memo(
   function AdComponent(props: { idx: string; size?: number }) {
     console.log("ad feed idx: ", props);
     const { idx } = props;
-    //   useEffect(() => {
-    //     if (!(window as any).adsbygoogle) {
-    //       (window as any).adsbygoogle = (window as any).adsbygoogle || [];
-    //       (window as any).adsbygoogle.push({});
-    //     }
-    // }, [props]);
+    useEffect(() => {
+      if (!(window as any).adsbygoogle) {
+        (window as any).adsbygoogle = (window as any).adsbygoogle || [];
+        (window as any).adsbygoogle.push({});
+      }
+    }, [props]);
     return (
       <div
         className={styles["chat-message"]}

@@ -560,7 +560,7 @@ export function Chat() {
     setAutoScroll(true);
     const randKey = Math.random();
     if (randKey < 1) {
-      console.log("show feed");
+      console.log("show feed", randKey);
       setShowFeed(randKey);
     }
   };
