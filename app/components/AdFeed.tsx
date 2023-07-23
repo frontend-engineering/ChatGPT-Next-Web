@@ -12,7 +12,7 @@ export const AdFeed = memo(
     return (
       <div
         className={styles["chat-message"]}
-        style={{ minHeight: "300px" }}
+        style={{ minHeight: "300px", width: "100%", minWidth: "250px" }}
         id={`feeds-${idx}`}
         key={`feeds-${idx}`}
       >
