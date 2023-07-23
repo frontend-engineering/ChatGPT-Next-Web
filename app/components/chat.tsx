@@ -68,6 +68,7 @@ import { useCommand } from "../command";
 import { prettyObject } from "../utils/format";
 import { ExportMessageModal } from "./exporter";
 import { getClientConfig } from "../config/client";
+import { AdFeed } from "./AdFeed";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -458,7 +459,7 @@ export function ChatActions(props: {
 }
 
 export function Chat() {
-  type RenderMessage = ChatMessage & { preview?: boolean };
+  type RenderMessage = ChatMessage & { preview?: boolean } & { feed?: number };
 
   const chatStore = useChatStore();
   const [session, sessionIndex] = useChatStore((state) => [
@@ -478,6 +479,7 @@ export function Chat() {
   const [hitBottom, setHitBottom] = useState(true);
   const isMobileScreen = useMobileScreen();
   const navigate = useNavigate();
+  const [showFeed, setShowFeed] = useState(0);
 
   const accessStore = useAccessStore();
 
@@ -527,6 +529,8 @@ export function Chat() {
   // only search prompts when user input is short
   const SEARCH_TEXT_LIMIT = 30;
   const onInput = (text: string) => {
+    setShowFeed(0);
+
     setUserInput(text);
     const n = text.trim().length;
 
@@ -554,6 +558,11 @@ export function Chat() {
     setPromptHints([]);
     if (!isMobileScreen) inputRef.current?.focus();
     setAutoScroll(true);
+    const randKey = Math.random();
+    if (randKey < 1) {
+      console.log("show feed");
+      setShowFeed(randKey);
+    }
   };
 
   // stop response
@@ -901,8 +910,8 @@ export function Chat() {
             </>
           );
         })}
+        {showFeed > 0.5 ? <AdFeed idx={showFeed.toString()} /> : null}
       </div>
-
       <div className={styles["chat-input-panel"]}>
         <PromptHints prompts={promptHints} onPromptSelect={onPromptSelect} />
 
