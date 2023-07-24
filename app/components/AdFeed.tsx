@@ -25,7 +25,7 @@ export const AdFeed = memo(
           className="adsbygoogle"
           style={{ display: "block", width: "100%" }}
           data-ad-format="fluid"
-          data-ad-layout-key={mobile ? "-cb-y+66+9b-138" : "-fb+5w+4e-db+86"}
+          data-ad-layout-key={mobile ? "-cn-t+5z+6o-xt" : "-fb+5w+4e-db+86"}
           data-ad-client="ca-pub-3614870144525266"
           data-ad-slot={mobile ? "8944040232" : "9759655819"}
         ></ins>
