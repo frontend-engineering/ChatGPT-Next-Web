@@ -910,7 +910,7 @@ export function Chat() {
             </>
           );
         })}
-        {showFeed > 0.5 ? <AdFeed idx={showFeed.toString()} /> : null}
+        {showFeed > 0.2 ? <AdFeed idx={showFeed.toString()} /> : null}
       </div>
       <div className={styles["chat-input-panel"]}>
         <PromptHints prompts={promptHints} onPromptSelect={onPromptSelect} />
