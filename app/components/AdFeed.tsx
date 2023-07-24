@@ -1,10 +1,13 @@
 import { useEffect, memo } from "react";
 import styles from "./home.module.scss";
+import { isMobile } from "../utils";
 
 export const AdFeed = memo(
   function AdComponent(props: { idx: string; size?: number }) {
     console.log("ad feed idx: ", props);
     const { idx } = props;
+    const mobile = isMobile();
+
     useEffect(() => {
       setTimeout(() => {
         (window as any).adsbygoogle = (window as any).adsbygoogle || [];
@@ -22,9 +25,9 @@ export const AdFeed = memo(
           className="adsbygoogle"
           style={{ display: "block", width: "100%" }}
           data-ad-format="fluid"
-          data-ad-layout-key="-fb+5w+4e-db+86"
+          data-ad-layout-key={mobile ? "-cb-y+66+9b-138" : "-fb+5w+4e-db+86"}
           data-ad-client="ca-pub-3614870144525266"
-          data-ad-slot="9759655819"
+          data-ad-slot={mobile ? "8944040232" : "9759655819"}
         ></ins>
       </div>
     );
