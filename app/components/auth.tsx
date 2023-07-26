@@ -59,7 +59,7 @@ export function AuthPage() {
           />
         )}
       </div>
-
+      {/* 
       <div className={styles["auth-divider"]}>OR</div>
 
       <div className={styles["auth-title"]}>{Locale.Auth.Title}</div>
@@ -72,7 +72,7 @@ export function AuthPage() {
         onChange={(e) => {
           access.updateCode(e.currentTarget.value);
         }}
-      />
+      /> */}
       <div className={styles["auth-actions"]}>
         <IconButton
           text={Locale.Auth.Confirm}
