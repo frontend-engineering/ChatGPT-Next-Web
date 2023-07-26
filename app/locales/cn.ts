@@ -183,7 +183,7 @@ const cn = {
       Placeholder: "点击登录",
       Amount: "额度",
       LogoutBtn: "点击退出",
-      Recharge: "充值",
+      Recharge: "额度领取",
     },
     AccessCode: {
       Title: "访问密码",
