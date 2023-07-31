@@ -558,6 +558,10 @@ export function Chat() {
     setPromptHints([]);
     if (!isMobileScreen) inputRef.current?.focus();
     setAutoScroll(true);
+    if (accessStore.isPaidUser()) {
+      setShowFeed(0);
+      return;
+    }
     const randKey = Math.random();
     if (randKey < 1) {
       console.log("show feed", randKey);

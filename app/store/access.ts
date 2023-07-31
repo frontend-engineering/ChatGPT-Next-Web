@@ -27,6 +27,7 @@ export interface AccessControlStore {
   logout: () => Promise<void>;
   can: () => Promise<boolean>;
   purchase: () => Promise<boolean>;
+  isPaidUser: () => boolean;
   updateProfile: (refresh?: boolean) => any;
   updateToken: (_: string) => void;
   updateCode: (_: string) => void;
@@ -134,6 +135,14 @@ export const useAccessStore = create<AccessControlStore>()(
           showToast(error?.message);
           return false;
         }
+      },
+
+      isPaidUser() {
+        const curCnt = get().authAccount?.profile?.amount;
+        if (curCnt && curCnt > 30) {
+          return true;
+        }
+        return false;
       },
 
       async updateProfile(refresh?: boolean) {
