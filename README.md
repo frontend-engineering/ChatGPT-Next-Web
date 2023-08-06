@@ -53,7 +53,7 @@ One-Click to deploy well-designed ChatGPT web UI on Vercel.
 
  或加交流群
 <p align="center">
-  <img width="248px" src="./public/group-qr-8-6.jpeg" />
+  <img width="248px" src="./public/group-qr-8-13.jpeg" />
 </p>
 
 ## Features
