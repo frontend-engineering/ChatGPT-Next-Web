@@ -81,6 +81,7 @@ const getCustomerInfo = async (userToken: string) => {
 
 export const checkLimit = async (token: string) => {
   console.log("checking limit", token);
+
   const userInfo = await getCustomerInfo(token);
   console.log("resp - ", userInfo);
   const profile = userInfo.profile;
@@ -184,7 +185,7 @@ export async function auth(req: NextRequest, isCost: boolean) {
   let cnt = 0;
   // if user does not provide an api key, inject system api key
   if (!token) {
-    if (oauthToken && isCost) {
+    if (oauthToken && isCost && !serverConfig.freeMode) {
       const { success, data, message } = await checkLimit(oauthToken);
       if (!success) {
         console.log("check oauth limit failed: ", message);

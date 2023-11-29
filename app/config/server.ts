@@ -52,5 +52,6 @@ export const getServerSideConfig = () => {
     appId: process.env.APP_ID,
     appToken: process.env.APP_TOKEN,
     host: process.env.HOST,
+    freeMode: process.env.FREE_MODE,
   };
 };
