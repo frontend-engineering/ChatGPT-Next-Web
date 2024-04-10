@@ -210,7 +210,13 @@ export class GeminiProApi implements LLMApi {
               partialData += decoder.decode(value, { stream: true });
 
               try {
-                let data = JSON.parse(ensureProperEnding(partialData));
+                const data = partialData
+                  .split("data: ")
+                  .filter((d) => !!d)
+                  .map((partial) => {
+                    return JSON.parse(ensureProperEnding(partial));
+                  });
+                // let data = JSON.parse(ensureProperEnding(partialData));
 
                 const textArray = data.reduce(
                   (acc: string[], item: { candidates: any[] }) => {
@@ -230,7 +236,7 @@ export class GeminiProApi implements LLMApi {
                   remainText += deltaArray.join("");
                 }
               } catch (error) {
-                // console.log("[Response Animation] error: ", error,partialData);
+                console.log("[Response Animation] error: ", error, partialData);
                 // skip error message when parsing json
               }
 
