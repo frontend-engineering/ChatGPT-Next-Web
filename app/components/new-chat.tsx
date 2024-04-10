@@ -14,22 +14,16 @@ import Locale from "../locales";
 import { useAppConfig, useChatStore } from "../store";
 import { MaskAvatar } from "./mask";
 import { useCommand } from "../command";
-
-function getIntersectionArea(aRect: DOMRect, bRect: DOMRect) {
-  const xmin = Math.max(aRect.x, bRect.x);
-  const xmax = Math.min(aRect.x + aRect.width, bRect.x + bRect.width);
-  const ymin = Math.max(aRect.y, bRect.y);
-  const ymax = Math.min(aRect.y + aRect.height, bRect.y + bRect.height);
-  const width = xmax - xmin;
-  const height = ymax - ymin;
-  const intersectionArea = width < 0 || height < 0 ? 0 : width * height;
-  return intersectionArea;
-}
+import { showConfirm } from "./ui-lib";
+import { BUILTIN_MASK_STORE } from "../masks";
 
 function MaskItem(props: { mask: Mask; onClick?: () => void }) {
   return (
     <div className={styles["mask"]} onClick={props.onClick}>
-      <MaskAvatar mask={props.mask} />
+      <MaskAvatar
+        avatar={props.mask.avatar}
+        model={props.mask.modelConfig.model}
+      />
       <div className={styles["mask-name"] + " one-line"}>{props.mask.name}</div>
     </div>
   );
@@ -92,14 +86,16 @@ export function NewChat() {
   const { state } = useLocation();
 
   const startChat = (mask?: Mask) => {
-    chatStore.newSession(mask);
-    setTimeout(() => navigate(Path.Chat), 1);
+    setTimeout(() => {
+      chatStore.newSession(mask);
+      navigate(Path.Chat);
+    }, 10);
   };
 
   useCommand({
     mask: (id) => {
       try {
-        const mask = maskStore.get(parseInt(id));
+        const mask = maskStore.get(id) ?? BUILTIN_MASK_STORE.get(id);
         startChat(mask ?? undefined);
       } catch {
         console.error("[New Chat] failed to create chat from mask id=", id);
@@ -125,8 +121,8 @@ export function NewChat() {
         {!state?.fromHome && (
           <IconButton
             text={Locale.NewChat.NotShow}
-            onClick={() => {
-              if (confirm(Locale.NewChat.ConfirmNoShow)) {
+            onClick={async () => {
+              if (await showConfirm(Locale.NewChat.ConfirmNoShow)) {
                 startChat();
                 config.update(
                   (config) => (config.dontShowMaskSplashScreen = true),

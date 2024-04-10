@@ -16,7 +16,11 @@ export default async function App() {
     <>
       <Home />
       {/* <AdSimple /> */}
-      {serverConfig?.isVercel && <Analytics />}
+      {serverConfig?.isVercel && (
+        <>
+          <Analytics />
+        </>
+      )}
     </>
   );
 }
