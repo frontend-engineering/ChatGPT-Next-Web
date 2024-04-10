@@ -92,6 +92,7 @@ async function handle(
     newHeaders.delete("www-authenticate");
     // to disable nginx buffering
     newHeaders.set("X-Accel-Buffering", "no");
+    console.log("get resp ", res.status);
 
     return new Response(res.body, {
       status: res.status,
