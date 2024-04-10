@@ -93,6 +93,9 @@ async function handle(
     // to disable nginx buffering
     newHeaders.set("X-Accel-Buffering", "no");
     console.log("get resp ", res.status);
+    if (res.status !== 200) {
+      console.error("error resp info: ", res.statusText, await res.json());
+    }
 
     return new Response(res.body, {
       status: res.status,
