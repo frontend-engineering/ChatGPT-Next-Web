@@ -181,58 +181,61 @@ export class GeminiProApi implements LLMApi {
             const decoder = new TextDecoder();
             let partialData = "";
 
-            return reader
-              ?.read()
-              .then(function processText({ done, value }): Promise<any> {
-                if (done) {
-                  if (response.status !== 200) {
-                    try {
-                      let data = JSON.parse(ensureProperEnding(partialData));
-                      if (data && data[0].error) {
-                        options.onError?.(new Error(data[0].error.message));
-                      } else {
-                        options.onError?.(new Error("Request failed"));
-                      }
-                    } catch (_) {
+            console.log("google chat on response...");
+            return reader?.read().then(function processText({
+              done,
+              value,
+            }): Promise<any> {
+              console.log("reading...", done, value);
+              if (done) {
+                if (response.status !== 200) {
+                  try {
+                    let data = JSON.parse(ensureProperEnding(partialData));
+                    if (data && data[0].error) {
+                      options.onError?.(new Error(data[0].error.message));
+                    } else {
                       options.onError?.(new Error("Request failed"));
                     }
+                  } catch (_) {
+                    options.onError?.(new Error("Request failed"));
                   }
-
-                  console.log("Stream complete");
-                  // options.onFinish(responseText + remainText);
-                  finished = true;
-                  return Promise.resolve();
                 }
 
-                partialData += decoder.decode(value, { stream: true });
+                console.log("Stream complete");
+                // options.onFinish(responseText + remainText);
+                finished = true;
+                return Promise.resolve();
+              }
 
-                try {
-                  let data = JSON.parse(ensureProperEnding(partialData));
+              partialData += decoder.decode(value, { stream: true });
 
-                  const textArray = data.reduce(
-                    (acc: string[], item: { candidates: any[] }) => {
-                      const texts = item.candidates.map((candidate) =>
-                        candidate.content.parts
-                          .map((part: { text: any }) => part.text)
-                          .join(""),
-                      );
-                      return acc.concat(texts);
-                    },
-                    [],
-                  );
+              try {
+                let data = JSON.parse(ensureProperEnding(partialData));
 
-                  if (textArray.length > existingTexts.length) {
-                    const deltaArray = textArray.slice(existingTexts.length);
-                    existingTexts = textArray;
-                    remainText += deltaArray.join("");
-                  }
-                } catch (error) {
-                  // console.log("[Response Animation] error: ", error,partialData);
-                  // skip error message when parsing json
+                const textArray = data.reduce(
+                  (acc: string[], item: { candidates: any[] }) => {
+                    const texts = item.candidates.map((candidate) =>
+                      candidate.content.parts
+                        .map((part: { text: any }) => part.text)
+                        .join(""),
+                    );
+                    return acc.concat(texts);
+                  },
+                  [],
+                );
+
+                if (textArray.length > existingTexts.length) {
+                  const deltaArray = textArray.slice(existingTexts.length);
+                  existingTexts = textArray;
+                  remainText += deltaArray.join("");
                 }
+              } catch (error) {
+                // console.log("[Response Animation] error: ", error,partialData);
+                // skip error message when parsing json
+              }
 
-                return reader.read().then(processText);
-              });
+              return reader.read().then(processText);
+            });
           })
           .catch((error) => {
             console.error("Error:", error);
