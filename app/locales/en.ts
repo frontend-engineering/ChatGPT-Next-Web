@@ -131,6 +131,11 @@ const en: LocaleType = {
     Revert: "Revert",
   },
   Settings: {
+    Token: {
+      Title: "Your own OpenAI key",
+      SubTitle: "Your key only save locally and would not upload to server",
+      Placeholder: "OpenAI Key",
+    },
     Title: "Settings",
     SubTitle: "All Settings",
     Danger: {
