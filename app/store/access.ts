@@ -108,8 +108,8 @@ export const useAccessStore = createPersistStore(
     authAT: "",
     needCode: true as boolean,
     hideUserApiKey: false as boolean,
-    appId: "",
-    appToken: "",
+    appId: process.env.APP_ID,
+    appToken: process.env.APP_TOKEN,
     openaiUrl: DEFAULT_OPENAI_URL,
     cacheDate: 0,
     enabledAccessControl() {
