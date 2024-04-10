@@ -197,7 +197,7 @@ export function getHeaders() {
       headers.Authorization = makeBearer(
         ACCESS_CODE_PREFIX + accessStore.accessCode,
       );
-    } else if (!(isGoogle && clientConfig?.isApp)) {
+    } else {
       // use user's api key first
       if (validString(apiKey)) {
         headers[authHeader] = makeBearer(apiKey);

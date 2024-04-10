@@ -46,6 +46,7 @@ async function handle(
   const isCost = subpath === OpenaiPath.ChatPath;
   const authResult = await auth(req, isCost, ModelProvider.GeminiPro);
   if (authResult.error) {
+    console.error("auth error: ", authResult);
     return NextResponse.json(authResult, {
       status: 401,
     });
@@ -54,6 +55,7 @@ async function handle(
   const bearToken = req.headers.get("Authorization") ?? "";
   const token = bearToken.trim().replaceAll("Bearer ", "").trim();
 
+  console.log("get processed bearer token: ", token);
   const key = token ? token : serverConfig.googleApiKey;
 
   if (!key) {
@@ -67,8 +69,8 @@ async function handle(
       },
     );
   }
-
-  const fetchUrl = `${baseUrl}/${path}?key=${key}`;
+  console.log("google used key: ", key);
+  const fetchUrl = `${baseUrl}/${path}?alt=sse&key=${key}`;
   const fetchOptions: RequestInit = {
     headers: {
       "Content-Type": "application/json",
