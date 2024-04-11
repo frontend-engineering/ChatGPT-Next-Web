@@ -187,12 +187,15 @@ export class GeminiProApi implements LLMApi {
               value,
             }): Promise<any> {
               console.log("reading...", done, value);
+              partialData += decoder.decode(value, { stream: true });
               if (done) {
                 if (response.status !== 200) {
                   try {
                     let data = JSON.parse(ensureProperEnding(partialData));
                     if (data && data[0].error) {
                       options.onError?.(new Error(data[0].error.message));
+                    } else if (data && data.msg) {
+                      options.onError?.(new Error(data.msg));
                     } else {
                       options.onError?.(new Error("Request failed"));
                     }
@@ -206,8 +209,6 @@ export class GeminiProApi implements LLMApi {
                 finished = true;
                 return Promise.resolve();
               }
-
-              partialData += decoder.decode(value, { stream: true });
 
               try {
                 const data = partialData
