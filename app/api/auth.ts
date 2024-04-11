@@ -186,7 +186,7 @@ export async function auth(
   ) {
     return {
       error: true,
-      msg: !accessCode ? "empty access code" : "wrong access code",
+      msg: "NeedAuth",
     };
   }
 

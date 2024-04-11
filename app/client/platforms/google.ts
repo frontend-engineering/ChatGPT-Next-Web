@@ -8,6 +8,7 @@ import {
   getMessageImages,
   isVisionModel,
 } from "@/app/utils";
+import Locale from "../../locales";
 
 export class GeminiProApi implements LLMApi {
   extractMessage(res: any) {
@@ -190,17 +191,21 @@ export class GeminiProApi implements LLMApi {
               partialData += decoder.decode(value, { stream: true });
               if (done) {
                 if (response.status !== 200) {
-                  try {
-                    let data = JSON.parse(ensureProperEnding(partialData));
-                    if (data && data[0].error) {
-                      options.onError?.(new Error(data[0].error.message));
-                    } else if (data && data.msg) {
-                      options.onError?.(new Error(data.msg));
-                    } else {
+                  if (response.status === 401) {
+                    options.onFinish(Locale.Error.Unauthorized);
+                  } else {
+                    try {
+                      let data = JSON.parse(ensureProperEnding(partialData));
+                      if (data && data[0].error) {
+                        options.onError?.(new Error(data[0].error.message));
+                      } else if (data && data.msg) {
+                        options.onError?.(new Error(data.msg));
+                      } else {
+                        options.onError?.(new Error("Request failed"));
+                      }
+                    } catch (_) {
                       options.onError?.(new Error("Request failed"));
                     }
-                  } catch (_) {
-                    options.onError?.(new Error("Request failed"));
                   }
                 }
 
