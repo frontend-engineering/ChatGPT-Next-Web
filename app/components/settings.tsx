@@ -730,8 +730,8 @@ export function Settings() {
               checkingUpdate
                 ? Locale.Settings.Update.IsChecking
                 : hasNewVersion
-                ? Locale.Settings.Update.FoundUpdate(remoteId ?? "ERROR")
-                : Locale.Settings.Update.IsLatest
+                  ? Locale.Settings.Update.FoundUpdate(remoteId ?? "ERROR")
+                  : Locale.Settings.Update.IsLatest
             }
           >
             {checkingUpdate ? (
@@ -913,23 +913,6 @@ export function Settings() {
                   />
                 )}
               </ListItem>
-              {showAccessCode ? (
-                <ListItem
-                  title={Locale.Settings.AccessCode.Title}
-                  subTitle={Locale.Settings.AccessCode.SubTitle}
-                >
-                  <PasswordInput
-                    value={accessStore.accessCode}
-                    type="text"
-                    placeholder={Locale.Settings.AccessCode.Placeholder}
-                    onChange={(e) => {
-                      accessStore.updateCode(e.currentTarget.value);
-                    }}
-                  />
-                </ListItem>
-              ) : (
-                <></>
-              )}
             </>
           ) : (
             <></>
