@@ -56,7 +56,7 @@ const getCustomerInfo = async (userToken: string) => {
   }
 
   const serverConfig = getServerSideConfig();
-  const sdkHost = `${serverConfig?.host || DomainHost}/api/sdk/customer`;
+  const sdkHost = `${serverConfig?.host || DomainHost}/flowda-api/trpc/customerAuthV4.getUser`;
   return fetch(sdkHost, {
     method: "GET",
     headers: {
@@ -66,19 +66,19 @@ const getCustomerInfo = async (userToken: string) => {
   })
     .then((resp) => resp.json())
     .then((resp) => {
-      if (resp?.success) {
-        ObjCache.set(
-          cacheKey,
-          {
-            date: curDateStr,
-            data: resp.data,
-          },
-          {
-            ex: cacheKeyPerDayTTL, // 1 day
-          },
-        );
-        return resp.data;
-      }
+      const data = resp.data.result.data
+      ObjCache.set(
+        cacheKey,
+        {
+          date: curDateStr,
+          data: data,
+        },
+        {
+          ex: cacheKeyPerDayTTL, // 1 day
+        },
+      );
+      return data;
+    }, () => {
       throw new Error("get user info failed");
     });
 };
@@ -125,7 +125,7 @@ export const userAmountFeedback = async (token: string) => {
   console.log("user profile amount update - ", token);
   // 付费额度更新
   const serverConfig = getServerSideConfig();
-  const sdkHost = `${serverConfig?.host || DomainHost}/api/sdk/customer/amount`;
+  const sdkHost = `${serverConfig?.host || DomainHost}/flowda-api/trpc/customerAuthV4.amountUpdate`;
   return fetch(sdkHost, {
     method: "POST",
     headers: {
@@ -139,7 +139,7 @@ export const userAmountFeedback = async (token: string) => {
   })
     .then((resp) => resp.json())
     .then((resp) => {
-      const updatedUserInfo = resp?.data;
+      const updatedUserInfo = resp.data.result.data
       console.log("refresh remote profile", updatedUserInfo);
       if (updatedUserInfo?.profile) {
         const curDateStr = new Date().toDateString().replace(/\s/gim, "-");
