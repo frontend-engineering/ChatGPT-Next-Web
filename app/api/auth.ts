@@ -94,7 +94,8 @@ const getCustomerInfo = async (userToken: string) => {
 
         return data;
       },
-      () => {
+      (error) => {
+        console.error("catched: ", error);
         throw new Error("get user info failed");
       },
     );
