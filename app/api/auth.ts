@@ -113,7 +113,7 @@ export const checkLimit = async (token: string) => {
 
   const userInfo = await getCustomerInfo(token);
   console.log("resp - ", userInfo);
-  const profile = userInfo.profile;
+  const profile = userInfo.orderProfile;
   // 强制用户订阅，免费版或者付费版二选一
   if (!profile) {
     return {
