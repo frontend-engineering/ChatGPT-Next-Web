@@ -42,7 +42,6 @@ function parseApiKey(bearToken: string) {
 const DomainHost = "https://prod-sdk-api.my.webinfra.cloud";
 const cacheKeyPerDayTTL = 3600 * 24;
 
-
 const getCustomerInfo = async (userToken: string) => {
   const curDateStr = new Date().toDateString().replace(/\s/gim, "-");
   const cacheKey = `cnt-${hashCode(userToken)}`;
@@ -63,16 +62,15 @@ const getCustomerInfo = async (userToken: string) => {
 
   const serverConfig = getServerSideConfig();
   const params: Record<string, unknown> = {
-    input: {}
-  }
+    input: {},
+  };
   const queryString = Object.keys(params)
     .map((key) => {
       const value = encodeURIComponent(JSON.stringify(params[key]));
       return `${encodeURIComponent(key)}=${value}`;
     })
-    .join('&');
-  const sdkHost =
-    `${serverConfig?.host || DomainHost}/flowda-api/trpc/customerAuthV4.getUser?${queryString}`
+    .join("&");
+  const sdkHost = `${serverConfig?.host || DomainHost}/flowda-api/trpc/customerAuthV4.getUser?${queryString}`;
   console.log(" - ", sdkHost);
   return fetch(sdkHost, {
     method: "GET",
@@ -84,7 +82,8 @@ const getCustomerInfo = async (userToken: string) => {
     .then((resp) => resp.json())
     .then(
       (resp) => {
-        const data = resp.data.result.data;
+        console.log("resp ", resp);
+        const data = resp?.result.data;
         try {
           ObjCache.set(
             cacheKey,
@@ -165,7 +164,7 @@ export const userAmountFeedback = async (token: string) => {
   })
     .then((resp) => resp.json())
     .then((resp) => {
-      const updatedUserInfo = resp.data.result.data;
+      const updatedUserInfo = resp.result.data;
       console.log("refresh remote profile", updatedUserInfo);
       if (updatedUserInfo?.profile) {
         try {
