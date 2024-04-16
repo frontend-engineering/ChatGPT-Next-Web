@@ -60,6 +60,7 @@ const getCustomerInfo = async (userToken: string) => {
   const sdkHost =
     `${serverConfig?.host || DomainHost}/flowda-api/trpc/customerAuthV4.getUser?` +
     qs.stringify({ input: {} });
+  console.log(" - ", sdkHost);
   return fetch(sdkHost, {
     method: "GET",
     headers: {
