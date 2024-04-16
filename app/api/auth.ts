@@ -47,13 +47,18 @@ const getCustomerInfo = async (userToken: string) => {
   const curDateStr = new Date().toDateString().replace(/\s/gim, "-");
   const cacheKey = `cnt-${hashCode(userToken)}`;
 
-  const cacheData = await ObjCache.get(cacheKey);
-  if (cacheData?.date === curDateStr) {
-    console.log("cache hit: ", cacheData?.date, cacheKey);
-    if ((cacheData.data as any)?.profile?.amount > 0) {
-      console.log("valid cache data");
-      return cacheData.data;
+  console.log("cache key - ", cacheKey);
+  try {
+    const cacheData = await ObjCache.get(cacheKey);
+    if (cacheData?.date === curDateStr) {
+      console.log("cache hit: ", cacheData?.date, cacheKey);
+      if ((cacheData.data as any)?.profile?.amount > 0) {
+        console.log("valid cache data");
+        return cacheData.data;
+      }
     }
+  } catch (error) {
+    console.error("upstash error: ", error);
   }
 
   const serverConfig = getServerSideConfig();
@@ -72,16 +77,21 @@ const getCustomerInfo = async (userToken: string) => {
     .then(
       (resp) => {
         const data = resp.data.result.data;
-        ObjCache.set(
-          cacheKey,
-          {
-            date: curDateStr,
-            data: data,
-          },
-          {
-            ex: cacheKeyPerDayTTL, // 1 day
-          },
-        );
+        try {
+          ObjCache.set(
+            cacheKey,
+            {
+              date: curDateStr,
+              data: data,
+            },
+            {
+              ex: cacheKeyPerDayTTL, // 1 day
+            },
+          );
+        } catch (error) {
+          console.error("upstash error: ", error);
+        }
+
         return data;
       },
       () => {
@@ -149,18 +159,23 @@ export const userAmountFeedback = async (token: string) => {
       const updatedUserInfo = resp.data.result.data;
       console.log("refresh remote profile", updatedUserInfo);
       if (updatedUserInfo?.profile) {
-        const curDateStr = new Date().toDateString().replace(/\s/gim, "-");
-        const cacheKey = `cnt-${token.slice(0, 12)}`;
-        ObjCache.set(
-          cacheKey,
-          {
-            date: curDateStr,
-            data: updatedUserInfo,
-          },
-          {
-            ex: cacheKeyPerDayTTL, // 1 day
-          },
-        );
+        try {
+          const curDateStr = new Date().toDateString().replace(/\s/gim, "-");
+          const cacheKey = `cnt-${token.slice(0, 12)}`;
+          ObjCache.set(
+            cacheKey,
+            {
+              date: curDateStr,
+              data: updatedUserInfo,
+            },
+            {
+              ex: cacheKeyPerDayTTL, // 1 day
+            },
+          );
+        } catch (error) {
+          console.error("upstash error: ", error);
+        }
+
         return updatedUserInfo;
       }
     });
