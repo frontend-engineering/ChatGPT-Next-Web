@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+import * as qs from 'qs'
 import { getServerSideConfig } from "../config/server";
 import md5 from "spark-md5";
 import ObjCache from "./objCache";
@@ -56,7 +57,7 @@ const getCustomerInfo = async (userToken: string) => {
   }
 
   const serverConfig = getServerSideConfig();
-  const sdkHost = `${serverConfig?.host || DomainHost}/flowda-api/trpc/customerAuthV4.getUser`;
+  const sdkHost = `${serverConfig?.host || DomainHost}/flowda-api/trpc/customerAuthV4.getUser?` + qs.stringify({ input: {} }));
   return fetch(sdkHost, {
     method: "GET",
     headers: {
