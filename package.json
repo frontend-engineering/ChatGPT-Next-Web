@@ -16,7 +16,7 @@
     "proxy-dev": "sh ./scripts/init-proxy.sh && proxychains -f ./scripts/proxychains.conf yarn dev"
   },
   "dependencies": {
-    "@cashier/web": "^0.6.2",
+    "@cashier/web": "^0.10.0",
     "@fortaine/fetch-event-source": "^3.0.6",
     "@hello-pangea/dnd": "^16.5.0",
     "@next/third-parties": "^14.1.0",
@@ -62,9 +62,6 @@
     "prettier": "^3.0.2",
     "typescript": "5.2.2",
     "webpack": "^5.88.1"
-  },
-  "resolutions": {
-    "lint-staged/yaml": "^2.2.2"
   },
   "packageManager": "yarn@1.22.19"
 }
