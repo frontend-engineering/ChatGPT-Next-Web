@@ -195,6 +195,8 @@ export async function auth(
   if (!token) {
     const serverConfig = getServerSideConfig();
 
+    console.log("free mode: ", serverConfig.freeMode);
+    console.log("oauth: ", oauthToken, isCost);
     if (oauthToken && isCost && !serverConfig.freeMode) {
       const { success, data, message } = await checkLimit(oauthToken);
       if (!success) {
