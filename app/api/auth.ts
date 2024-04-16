@@ -1,5 +1,4 @@
 import { NextRequest } from "next/server";
-import * as qs from "qs";
 import { getServerSideConfig } from "../config/server";
 import md5 from "spark-md5";
 import ObjCache from "./objCache";
@@ -43,6 +42,7 @@ function parseApiKey(bearToken: string) {
 const DomainHost = "https://prod-sdk-api.my.webinfra.cloud";
 const cacheKeyPerDayTTL = 3600 * 24;
 
+
 const getCustomerInfo = async (userToken: string) => {
   const curDateStr = new Date().toDateString().replace(/\s/gim, "-");
   const cacheKey = `cnt-${hashCode(userToken)}`;
@@ -62,9 +62,17 @@ const getCustomerInfo = async (userToken: string) => {
   }
 
   const serverConfig = getServerSideConfig();
+  const params: Record<string, unknown> = {
+    input: {}
+  }
+  const queryString = Object.keys(params)
+    .map((key) => {
+      const value = encodeURIComponent(JSON.stringify(params[key]));
+      return `${encodeURIComponent(key)}=${value}`;
+    })
+    .join('&');
   const sdkHost =
-    `${serverConfig?.host || DomainHost}/flowda-api/trpc/customerAuthV4.getUser?` +
-    qs.stringify({ input: {} });
+    `${serverConfig?.host || DomainHost}/flowda-api/trpc/customerAuthV4.getUser?${queryString}`
   console.log(" - ", sdkHost);
   return fetch(sdkHost, {
     method: "GET",
