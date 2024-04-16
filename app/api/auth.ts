@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import * as qs from 'qs'
+import * as qs from "qs";
 import { getServerSideConfig } from "../config/server";
 import md5 from "spark-md5";
 import ObjCache from "./objCache";
@@ -57,7 +57,9 @@ const getCustomerInfo = async (userToken: string) => {
   }
 
   const serverConfig = getServerSideConfig();
-  const sdkHost = `${serverConfig?.host || DomainHost}/flowda-api/trpc/customerAuthV4.getUser?` + qs.stringify({ input: {} }));
+  const sdkHost =
+    `${serverConfig?.host || DomainHost}/flowda-api/trpc/customerAuthV4.getUser?` +
+    qs.stringify({ input: {} });
   return fetch(sdkHost, {
     method: "GET",
     headers: {
@@ -66,22 +68,25 @@ const getCustomerInfo = async (userToken: string) => {
     },
   })
     .then((resp) => resp.json())
-    .then((resp) => {
-      const data = resp.data.result.data
-      ObjCache.set(
-        cacheKey,
-        {
-          date: curDateStr,
-          data: data,
-        },
-        {
-          ex: cacheKeyPerDayTTL, // 1 day
-        },
-      );
-      return data;
-    }, () => {
-      throw new Error("get user info failed");
-    });
+    .then(
+      (resp) => {
+        const data = resp.data.result.data;
+        ObjCache.set(
+          cacheKey,
+          {
+            date: curDateStr,
+            data: data,
+          },
+          {
+            ex: cacheKeyPerDayTTL, // 1 day
+          },
+        );
+        return data;
+      },
+      () => {
+        throw new Error("get user info failed");
+      },
+    );
 };
 
 export const checkLimit = async (token: string) => {
@@ -140,7 +145,7 @@ export const userAmountFeedback = async (token: string) => {
   })
     .then((resp) => resp.json())
     .then((resp) => {
-      const updatedUserInfo = resp.data.result.data
+      const updatedUserInfo = resp.data.result.data;
       console.log("refresh remote profile", updatedUserInfo);
       if (updatedUserInfo?.profile) {
         const curDateStr = new Date().toDateString().replace(/\s/gim, "-");
